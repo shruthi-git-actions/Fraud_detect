@@ -1,0 +1,43 @@
+schema: '2.0'
+stages:
+  Training:
+    cmd: python fraud_svm.py
+    deps:
+    - path: Data/creditcard.csv
+      md5: e90efcb83d69faf99fcab8b0255024de
+      size: 150828752
+    - path: fraud_svm.py
+      md5: 98fec7cff4f190af3ec536a371a15329
+      size: 2392
+    outs:
+    - path: Model/svm_fraud.pkl
+      md5: 326d53035451bff6b5be718301377056
+      size: 143608
+    - path: Output/x_test.csv
+      md5: 2cc955e57e5923a0cfd3bd10301aafdf
+      size: 31437046
+    - path: Output/y_test.csv
+      md5: 64c484ddff79baa1befa9474c53d7361
+      size: 490565
+  Testing:
+    cmd: python fraud_svm_test.py
+    deps:
+    - path: Model/svm_fraud.pkl
+      md5: 326d53035451bff6b5be718301377056
+      size: 143608
+    - path: Output/x_test.csv
+      md5: 2cc955e57e5923a0cfd3bd10301aafdf
+      size: 31437046
+    - path: Output/y_test.csv
+      md5: 64c484ddff79baa1befa9474c53d7361
+      size: 490565
+    - path: fraud_svm_test.py
+      md5: 81388e96e5f775f92c4c3d5d77298bcc
+      size: 1776
+    outs:
+    - path: Output/Accuracy.json
+      md5: b0f2e07114d1b85127fe61afe110ce02
+      size: 17
+    - path: Output/Confusion_matrix.json
+      md5: 2a4f39da44c7e6016919e4901a0a6bcb
+      size: 23
